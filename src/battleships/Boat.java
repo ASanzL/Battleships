@@ -6,6 +6,15 @@ public abstract class Boat implements TileObject {
     private int[] direction;
     private char name;
 
+    public void takeDamage() {
+        length--;
+        if(length <= 0) {
+            System.out.println("You sank a " + getFullName());
+        } else  {
+            System.out.println("You hit a " + getFullName());
+        }
+    }
+
     public int getLength() {
         return length;
     }
@@ -54,5 +63,8 @@ public abstract class Boat implements TileObject {
     }
     protected void setName(char c) {
         name = c;
+    }
+    public String getFullName() {
+        return "Ship";
     }
 }

@@ -29,13 +29,19 @@ public class Map {
                 [ammunition.getY()];
             try {
                 if ((map[ammunition.getX()]
-                        [ammunition.getY()] == null) ||
-                        (map[ammunition.getX()]
-                                [ammunition.getY()] instanceof Boat)) {
+                        [ammunition.getY()] instanceof Ammunition)) {
+                    System.out.println("You have already shot there.");
                     return false;
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
                 return false;
+            }
+            if(map[ammunition.getX()][ammunition.getY()] instanceof Boat) {
+                Boat boat = (Boat)map[ammunition.getX()][ammunition.getY()];
+                boat.takeDamage();
+
+            } else {
+                System.out.println("You hit water.");
             }
         map[ammunition.getX()][ammunition.getY()] = ammunition;
             return true;

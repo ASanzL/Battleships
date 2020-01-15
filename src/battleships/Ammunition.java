@@ -18,4 +18,8 @@ public class Ammunition implements TileObject {
     public int getY() {
         return coordinates[1];
     }
+
+    public String getFullName() {
+        return "Ammunition";
+    }
 }
