@@ -1,7 +1,7 @@
 package battleships;
 
 public interface PlayerActions {
-    void setName();
-    void shoot();
-    boolean placeBoats(String name, Map map);
+    String getName();
+    void shoot(TileObject[][] map);
+    boolean placeBoats(String name, TileObject[][] map);
 }

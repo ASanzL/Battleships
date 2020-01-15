@@ -8,22 +8,27 @@ public class Player implements PlayerActions {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-    @Override
-    public void setName() {
-
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
-    public void shoot() {
-
+    public void shoot(TileObject[][] map) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter X coordinate to shoot at: ");
+        int xCoord = scanner.nextInt();
+        System.out.println("Enter Y coordinate to shoot at: ");
+        int yCoord = scanner.nextInt();
+        Map.shoot(new Ammunition(xCoord-1, yCoord-1), map);
     }
 
     @Override
-    public boolean placeBoats(String name, Map map) {
+    public boolean placeBoats(String name, TileObject[][] map) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter X coordinate of " + name + ": ");
         int xCoord = scanner.nextInt();
@@ -54,7 +59,7 @@ public class Player implements PlayerActions {
         }
 
         Boat boat = new CarrierShip(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
-        switch(name){
+        switch(name) {
             case"Battleship":
                 boat = new Battleship(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
                 break;
@@ -69,7 +74,7 @@ public class Player implements PlayerActions {
                 break;
         }
 
-        if(map.placeBoat(boat, map.player1Map)) {
+        if(Map.placeBoat(boat, map)) {
             return true;
         }
         return false;

@@ -1,10 +1,11 @@
 package battleships;
 
 public class Map {
-    Boat [][] player1Map = new Boat[10][10];
-    Boat [][] player2Map = new Boat[10][10];
+    TileObject [][] player1Map = new TileObject[10][10];
+    TileObject [][] player2Map = new TileObject[10][10];
 
-    public boolean placeBoat(Boat boat, Boat [][] map) {
+
+    public static boolean placeBoat(Boat boat, TileObject [][] map) {
         for(int i = 0; i < boat.getLength(); i++) {
             try {
                 if (map[boat.getX() + i * boat.getDirectionX()]
@@ -22,7 +23,25 @@ public class Map {
         }
         return true;
     }
-    public void printMap(Boat [][] map) {
+
+    public static boolean shoot(Ammunition ammunition, TileObject [][] map) {
+        TileObject x = map[ammunition.getX()]
+                [ammunition.getY()];
+            try {
+                if ((map[ammunition.getX()]
+                        [ammunition.getY()] == null) ||
+                        (map[ammunition.getX()]
+                                [ammunition.getY()] instanceof Boat)) {
+                    return false;
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                return false;
+            }
+        map[ammunition.getX()][ammunition.getY()] = ammunition;
+            return true;
+    }
+
+    public static void printMap(TileObject [][] map) {
         System.out.print(" ");
         for (int i = 1; i < map.length + 1; i++) {
             System.out.print(" " + i  + " ");

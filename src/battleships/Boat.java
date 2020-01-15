@@ -1,6 +1,6 @@
 package battleships;
 
-public abstract class Boat {
+public abstract class Boat implements TileObject {
     private int length;
     private int[] coordinates;
     private int[] direction;

@@ -14,8 +14,8 @@ public class Main {
         map.placeBoat(new PatrolBoat(9, 7, new int[]{-1, 0}), map.player1Map);
         map.printMap(map.player1Map);*/
 
-        Player player1 = new Player("");
-        Player player2 = new Player("");
+        PlayerActions player1 = new Player("");
+        PlayerActions player2 = new Player("");
 
         System.out.print("Play against computer?: ");
         boolean playAgainstComputer;
@@ -23,23 +23,50 @@ public class Main {
         if(!playAgainstComputer) {
             System.out.println("Enter name of player 1: ");
             player1 = new Player(scanner.next());
-            player2 = new Player("Computer");
+            System.out.println("Enter name of player 2: ");
+            player2 = new Player(scanner.next());
         } else {
-            // 2 players
+            System.out.println("Enter name of player 1: ");
+            player1 = new Player(scanner.next());
+            player2 = new Computer();
         }
+        placeAllBoats(player1, map.player1Map);
+        placeAllBoats(player2, map.player2Map);
 
+        boolean player1sTurn = true;
+        PlayerActions player = player1;
+
+        // Change true to check if anyone has won
+        while (true) {
+            System.out.println(player.getName() + "'s turn to shoot.");
+            player.shoot(map.player1Map);
+            player = (player1sTurn) ? player2 : player1;
+            player1sTurn = !player1sTurn;
+            Map.printMap(map.player1Map);
+        }
+    }
+
+    public static void placeAllBoats(PlayerActions player, TileObject[][] map) {
+        System.out.println(player.getName() + " turn to place ships.");
         boolean allShipsHasBennPlaced = false;
         int boatIndex = 1;
         while (!allShipsHasBennPlaced) {
             Boat boat;
-            while(boatIndex<=5) {
+            while(boatIndex<=1) {
                 String[] boatNames = {"Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"};
-                if(player1.placeBoats(boatNames[boatIndex-1], map)) {
-                    map.printMap(map.player1Map);
+                if(player.placeBoats(boatNames[boatIndex-1], map)) {
                     boatIndex++;
+                    if(player instanceof Player) {
+                        Map.printMap(map);
+                    }
                 }
             }
             allShipsHasBennPlaced = true;
         }
+        Map.printMap(map);
+    }
+
+    public static void shoot() {
+
     }
 }
