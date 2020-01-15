@@ -32,8 +32,8 @@ public class Map {
         for (int i = 1; i < map.length + 1; i++) {
             System.out.print((char)(64+i));
             for (int j = 1; j < map.length + 1; j++) {
-                if (map[i-1][j-1] != null) {
-                    System.out.print(" " + map[i-1][j-1].getName() + " ");
+                if (map[j-1][i-1] != null) {
+                    System.out.print(" " + map[j-1][i-1].getName() + " ");
                 } else {
                     System.out.print(" - ");
                 }

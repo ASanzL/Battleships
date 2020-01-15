@@ -1,5 +1,6 @@
 package battleships;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -36,15 +37,15 @@ public class Main {
             int yDirection;
 
             Boat boat;
-            switch (boatIndex) {
-                case 1:
-                    if(placeBoat("Carrier", map)) {
-                        boatIndex++;
-                    }
-                break;
+            while(boatIndex<=5){
+                String[] boatNames = {"Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"};
+                if(placeBoat(boatNames[boatIndex-1], map)) {
+                    map.printMap(map.player1Map);
+                    boatIndex++;
+                }
             }
+            allShipsHasBennPlaced = true;
         }
-        map.printMap(map.player1Map);
     }
 
     public static boolean placeBoat(String name, Map map) {
@@ -52,11 +53,47 @@ public class Main {
         int xCoord = scanner.nextInt();
         System.out.println("Enter Y coordinate of " + name + ": ");
         int yCoord = scanner.nextInt();
-        System.out.println("Enter direction of " + name + ": ");
+        System.out.println("Enter direction of " + name + ": (n/e/s/w)");
+        String direction = scanner.next();
         int xDirection = -1;
         int yDirection = 0;
+
+        switch(direction){
+            case"n":
+                xDirection = 0;
+                yDirection = -1;
+                break;
+            case"e":
+                xDirection = 1;
+                yDirection = 0;
+                break;
+            case"s":
+                xDirection = 0;
+                yDirection = 1;
+                break;
+            case"w":
+                xDirection = -1;
+                yDirection = 0;
+                break;
+        }
+
         Boat boat = new CarrierShip(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
-        if(map.placeBoat(boat, map)) {
+        switch(name){
+            case"Battleship":
+                boat = new Battleship(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
+                break;
+            case"Destroyer":
+                boat = new Destroyer(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
+                break;
+            case"Submarine":
+                boat = new Submarine(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
+                break;
+            case"Patrol Boat":
+                boat = new PatrolBoat(xCoord-1, yCoord-1, new int[]{xDirection, yDirection});
+                break;
+        }
+
+        if(map.placeBoat(boat, map.player1Map)) {
             return true;
         }
         return false;
