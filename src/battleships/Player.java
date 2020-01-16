@@ -1,5 +1,6 @@
 package battleships;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Player implements PlayerActions {
@@ -18,22 +19,43 @@ public class Player implements PlayerActions {
     }
 
     @Override
-    public void shoot(TileObject[][] map) {
+    public boolean shoot(TileObject[][] map) {
         Scanner scanner = new Scanner(System.in);
+        int xCoord = -1;
+        int yCoord = -1;
         System.out.println("Enter X coordinate to shoot at: ");
-        int xCoord = scanner.nextInt();
+        try {
+            xCoord = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return false;
+        }
         System.out.println("Enter Y coordinate to shoot at: ");
-        int yCoord = scanner.nextInt();
+        try {
+            xCoord = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return false;
+        }
         Map.shoot(new Ammunition(xCoord-1, yCoord-1), map);
+        return true;
     }
 
     @Override
     public boolean placeBoats(String name, TileObject[][] map) {
         Scanner scanner = new Scanner(System.in);
+        int xCoord = -1;
+        int yCoord = -1;
         System.out.println("Enter X coordinate of " + name + ": ");
-        int xCoord = scanner.nextInt();
+        try {
+            xCoord = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return false;
+        }
         System.out.println("Enter Y coordinate of " + name + ": ");
-        int yCoord = scanner.nextInt();
+        try {
+            yCoord = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            return false;
+        }
         System.out.println("Enter direction of " + name + ": (n/e/s/w)");
         String direction = scanner.next();
         int xDirection = -1;
