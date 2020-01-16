@@ -44,7 +44,12 @@ public class Main {
             player = (player1sTurn) ? player2 : player1;
             tileMap = (player1sTurn) ? map.player1Map : map.player2Map;
             player1sTurn = !player1sTurn;
-            Map.printMap(map.player1Map);
+            if(player1sTurn){
+                Map.printPlayMap(map.player1Map);
+            }else{
+                Map.printPlayMap(map.player2Map);
+            }
+            //Map.printMap(!tileMap);
         }
     }
 
@@ -54,7 +59,7 @@ public class Main {
         int boatIndex = 1;
         while (!allShipsHasBennPlaced) {
             Boat boat;
-            while(boatIndex<=1) {
+            while(boatIndex<=2) {
                 String[] boatNames = {"Carrier", "Battleship", "Destroyer", "Submarine", "Patrol Boat"};
                 if(player.placeBoats(boatNames[boatIndex-1], map)) {
                     boatIndex++;
