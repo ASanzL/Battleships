@@ -40,7 +40,7 @@ public class Main {
         // Change true to check if anyone has won
         while (true) {
             System.out.println(player.getName() + "'s turn to shoot.");
-            player.shoot(tileMap);
+            while(!player.shoot(tileMap));
             player = (player1sTurn) ? player2 : player1;
             tileMap = (player1sTurn) ? map.player1Map : map.player2Map;
             player1sTurn = !player1sTurn;

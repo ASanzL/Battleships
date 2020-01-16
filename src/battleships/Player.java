@@ -31,11 +31,15 @@ public class Player implements PlayerActions {
         }
         System.out.println("Enter Y coordinate to shoot at: ");
         try {
-            xCoord = scanner.nextInt();
+            yCoord = scanner.nextInt();
         } catch (InputMismatchException e) {
             return false;
         }
-        Map.shoot(new Ammunition(xCoord-1, yCoord-1), map);
+        try {
+            Map.shoot(new Ammunition(xCoord-1, yCoord-1), map);
+        } catch (Exception e) {
+            return false;
+        }
         return true;
     }
 
