@@ -7,8 +7,8 @@ public class Computer implements PlayerActions {
     }
 
     @Override
-    public void shoot(TileObject[][] map) {
-
+    public boolean shoot(TileObject[][] map) {
+        return true;
     }
 
     @Override
